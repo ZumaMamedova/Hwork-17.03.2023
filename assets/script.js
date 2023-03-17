@@ -1,30 +1,34 @@
-//let a =5;
 
-//console.log(a);
+let allButtons=document.querySelectorAll(".btn-primary");
+let arr=[];
 
-// localStorage.setItem("num",5);
-// localStorage.clear();
-// console.log(localStorage.getItem("num"));
+allButtons.forEach(btn=>{
+    btn.addEventListener("click",function(e){
+        e.preventDefault();
+        let id=btn.parentNode.getAttribute("data-id");
+        if(localStorage.getItem("basket")==null){
+            localStorage.setItem("bsket",JSON.stringify([]));
+        }
+        let arr=JSON.parse(localStorage.getItem("basket"));
+        let existProduct=arr.find(p=>p.id==id)
+        if(existProduct==undefined){
+            arr.push({
+                id:id,
+                imgUrl:btn.parentNode.previousElementSibling.getAttribute("src"),
+                name:btn.parentNode.firstElementChild.innerText,
+                price:btn.previousElementSibling.innerText,
+                count:1,
+    
+            });
 
-// localStorage.setItem("name","lorem");
-// localStorage.setItem("surname","ipsumov");
+        }
+        else{
+            existProduct.count++;
+        }
+  
+        localStorage.setItem("basket",JSON.stringify(arr));
 
-//localStorage.setItem("age",20);
-//localStorage.clear();
-//localStorage.removeItem("name");
-
-// let numbers=[1,2,3,4];
-// localStorage.setItem("numberArr",JSON.stringify(numbers));
-// console.log(localStorage.getItem("numberArr"));
-
-// let user={
-//     name: "lorem",
-//     surname:"ipsum",
-//     age:20,
-// };
-// localStorage.setItem("user",JSON.stringify(user));
-// console.log(JSON.parse(localStorage.getItem("user")));
-
-
+    })
+})
 
 
