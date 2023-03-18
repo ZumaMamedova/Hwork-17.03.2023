@@ -1,13 +1,14 @@
 
 let allButtons=document.querySelectorAll(".btn-primary");
-let arr=[];
+let basketCount=document.getElementById("basketCount");
+//let arr=[];
 
 allButtons.forEach(btn=>{
     btn.addEventListener("click",function(e){
         e.preventDefault();
         let id=btn.parentNode.getAttribute("data-id");
         if(localStorage.getItem("basket")==null){
-            localStorage.setItem("bsket",JSON.stringify([]));
+            localStorage.setItem("basket",JSON.stringify([]));
         }
         let arr=JSON.parse(localStorage.getItem("basket"));
         let existProduct=arr.find(p=>p.id==id)
@@ -27,8 +28,22 @@ allButtons.forEach(btn=>{
         }
   
         localStorage.setItem("basket",JSON.stringify(arr));
+        calculateBasketCount();
 
     })
-})
+});
+
+
+function calculateBasketCount(){
+    if(localStorage.getItem("basket")!=null){
+        let arr=JSON.parse(localStorage.getItem("basket"));
+        basketCount.innerText=arr.length;
+    
+    }
+
+}
+calculateBasketCount();
+
+
 
 
